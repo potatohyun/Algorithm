@@ -21,7 +21,7 @@ class Solution
             }
             else{
                 stack.push(ss[i]);
-            }
+            } 
             
         }
         if(stack.size() == 0){
