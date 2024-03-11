@@ -13,7 +13,6 @@ class Solution {
                     cnt++;
                 }
             }
-            // System.out.println(prices[i]);
         }
         return answer;
     }
