@@ -1,32 +1,28 @@
 import java.util.*;
+
 class Solution {
-    public int[] solution(int[] progresses, int[] speeds) {
-        List<Integer> answerList = new ArrayList<>();
-        int stan = 0;
-        int cnt = 0;
-
-        for (int p = 0; p < progresses.length; p++) {
-            int tmp = (int) Math.ceil((100 - progresses[p]) / (double) speeds[p]);
-            if (stan == 0) {
-                stan = tmp;
-                cnt += 1;
-            } else if (stan < tmp) {
-                answerList.add(cnt);
-                stan = tmp;
-                cnt = 1;
-            } else {
-                cnt += 1;
-            }
-            if (p == progresses.length - 1) {
-                answerList.add(cnt);
+    public List<Integer> solution(int[] progresses, int[] speeds) {
+        List<Integer> answer = new ArrayList<>();
+        Stack<Integer> st = new Stack<>();
+        int[] l = new int[progresses.length];
+        // int cnt = 0;
+        int pre = 0;
+        for(int i=0;i<progresses.length;i++){
+            int tmp = (100-progresses[i])/speeds[i];
+            if((100-progresses[i])%speeds[i]!=0) tmp++;
+            if(st.isEmpty()) {
+                st.push(tmp);
+                pre = tmp;
+            }else if(pre >= tmp){
+                st.push(tmp);
+            }else{
+                answer.add(st.size());
+                st.clear();
+                st.push(tmp);
+                pre = tmp;
             }
         }
-
-        int[] answer = new int[answerList.size()];
-        for (int i = 0; i < answerList.size(); i++) {
-            answer[i] = answerList.get(i);
-        }
-
+        answer.add(st.size());
         return answer;
     }
 }
